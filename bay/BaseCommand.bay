@@ -18,45 +18,33 @@
 
 namespace Runtime.Console;
 
-use Runtime.Entity.Provider;
-use Runtime.Console.CommandsList;
-use Runtime.Console.Annotations.ConsoleCommand;
+use Runtime.BaseObject;
 
 
-class ModuleDescription
+class BaseCommand extends BaseObject
 {
-	
-	/**
-	 * Returns module name
-	 * @return string
-	 */
-	pure string getModuleName() => "Runtime.Console";
+	static const int SUCCESS = 1;
+	static const int UNKNOWN_ERROR = -1;
 	
 	
 	/**
-	 * Returns module name
-	 * @return string
+	 * Returns name
 	 */
-	pure string getModuleVersion() => "0.11.0";
+	static string getName() => "";
 	
 	
 	/**
-	 * Returns required modules
-	 * @return Map<string, string>
+	 * Returns description
 	 */
-	pure Map<string> requiredModules() =>
+	static string getDescription() => "";
+	
+	
+	/**
+	 * Run task
+	 */
+	int runTask()
 	{
-		'Runtime': '*',
-	};
-	
-	
-	/**
-	 * Returns enities
-	 */
-	pure Collection<Dict> entities() => 
-	[
-		new ConsoleCommand("Runtime.Console.Commands.Help"),
-		new Provider(classof CommandsList, new CommandsList),
-	];
+		return static::UNKNOWN_ERROR;
+	}
 	
 }

@@ -18,12 +18,16 @@
 
 namespace Runtime.Console;
 
+use Runtime.io;
 use Runtime.BaseProvider;
 use Runtime.Context;
+use Runtime.Entity;
+use Runtime.Console.CommandsList;
 
 
 class App extends BaseProvider
 {
+	
 	/**
 	 * Modules
 	 */
@@ -51,9 +55,40 @@ class App extends BaseProvider
 	
 	
 	/**
+	 * Returns exit code from command
+	 */
+	async int getExitCode(int command_error)
+	{
+		if (command_error == 0) return 1;
+		if (command_error > 0) return 0;
+		return 0 - command_error;
+	}
+	
+	
+	/**
 	 * Main entry point
 	 */
-	async void main()
+	async int main()
 	{
+		int command_error = -1;
+		
+		/* Run console command */
+		CommandsList commands = @.provider(classof CommandsList);
+		
+		string cmd = @.cli_args[1];
+		if (cmd == null) cmd = "help";
+		
+		string class_name = commands.getCommandByName(cmd);
+		if (class_name)
+		{
+			fn command_run = rtl::method(class_name, "run");
+			command_error = await command_run();
+		}
+		else
+		{
+			io::print_error("Command " ~ cmd ~ " not found")
+		}
+		
+		return static::getExitCode(command_error);
 	}
 }
