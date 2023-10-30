@@ -41,7 +41,7 @@ class Help extends BaseCommand
 	/**
 	 * Run task
 	 */
-	async int run()
+	async static int run()
 	{
 		io::print("Methods:");
 		
