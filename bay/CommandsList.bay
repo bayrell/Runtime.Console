@@ -35,9 +35,7 @@ class CommandsList extends BaseProvider
 	{
         Map commands_list = new Map();
 		
-		Collection<ConsoleCommand> commands =
-			@.entities.filter( lib::isInstance(classof ConsoleCommand) )
-		;
+		Collection<ConsoleCommand> commands = @.getEntities(classof ConsoleCommand);
 		for (int i=0; i<commands.count(); i++)
 		{
 			ConsoleCommand info = commands[i];
@@ -51,7 +49,7 @@ class CommandsList extends BaseProvider
 				string name = getName();
 				
 				/* Add to list */
-				commands_list.setValue(name, command_class_name);
+				commands_list.set(name, command_class_name);
 			}
 		}
 		
@@ -69,6 +67,4 @@ class CommandsList extends BaseProvider
 	 * Returns commands list
 	 */
 	Collection<string> getCommands() => this.commands_list.keys().sort();
-	
-	
 }

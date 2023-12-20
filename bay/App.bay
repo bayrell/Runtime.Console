@@ -19,30 +19,19 @@
 namespace Runtime.Console;
 
 use Runtime.io;
-use Runtime.BaseProvider;
+use Runtime.BaseObject;
 use Runtime.Context;
 use Runtime.Entity;
 use Runtime.Console.CommandsList;
 
 
-class App extends BaseProvider
+class App extends BaseObject
 {
-	
-	/**
-	 * Modules
-	 */
-	async Context modules(Context c)
-	{
-		return c;
-	}
-	
-	
 	/**
 	 * Init app
 	 */
-	async Context init(Context c)
+	async void init()
 	{
-		return c;
 	}
 	
 	
@@ -57,7 +46,7 @@ class App extends BaseProvider
 	/**
 	 * Returns exit code from command
 	 */
-	async int getExitCode(int command_error)
+	int getExitCode(int command_error)
 	{
 		if (command_error == 0) return 1;
 		if (command_error > 0) return 0;
