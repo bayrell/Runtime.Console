@@ -25,7 +25,6 @@ use Runtime.Console.Annotations.ConsoleCommand;
 
 class ModuleDescription
 {
-	
 	/**
 	 * Returns module name
 	 * @return string
@@ -58,5 +57,4 @@ class ModuleDescription
 		new ConsoleCommand("Runtime.Console.Commands.Help"),
 		new Provider(classof CommandsList, new CommandsList),
 	];
-	
 }

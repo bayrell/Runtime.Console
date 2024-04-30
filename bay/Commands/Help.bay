@@ -19,13 +19,13 @@
 namespace Runtime.Console.Commands;
 
 use Runtime.io;
+use Runtime.Callback;
 use Runtime.Console.BaseCommand;
 use Runtime.Console.CommandsList;
 
 
 class Help extends BaseCommand
 {
-	
 	/**
 	 * Returns name
 	 */
@@ -52,14 +52,12 @@ class Help extends BaseCommand
 		{
 			string command_name = keys.get(i);
 			string class_name = commands.getCommandByName(command_name);
-			fn getDescription = rtl::method(class_name, "getDescription");
-			string command_description = getDescription();
+			Callback getDescription = new Callback(class_name, "getDescription");
+			string command_description = getDescription.apply();
 			
 			io::print( io::color("yellow", command_name) ~ " - " ~ command_description );
 		}
 		
 		return static::SUCCESS;
 	}
-	
-	
 }

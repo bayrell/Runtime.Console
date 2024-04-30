@@ -20,6 +20,7 @@ namespace Runtime.Console;
 
 use Runtime.lib;
 use Runtime.BaseProvider;
+use Runtime.Callback;
 use Runtime.Console.BaseCommand;
 use Runtime.Console.Annotations.ConsoleCommand;
 
@@ -28,6 +29,7 @@ class CommandsList extends BaseProvider
 {
     Dict<string> commands_list = {};
     
+	
     /**
 	 * Start provider
 	 */
@@ -38,15 +40,15 @@ class CommandsList extends BaseProvider
 		Collection<ConsoleCommand> commands = @.getEntities(classof ConsoleCommand);
 		for (int i=0; i<commands.count(); i++)
 		{
-			ConsoleCommand info = commands[i];
+			ConsoleCommand info = commands.get(i);
 			string command_class_name = info.name;
 			if (command_class_name)
 			{
 				/* Get method getRoutes */
-				fn getName = rtl::method(command_class_name, "getName");
+				Callback getName = new Callback(command_class_name, "getName");
 				
 				/* Returns command name */
-				string name = getName();
+				string name = getName.apply();
 				
 				/* Add to list */
 				commands_list.set(name, command_class_name);

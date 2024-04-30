@@ -20,6 +20,7 @@ namespace Runtime.Console;
 
 use Runtime.io;
 use Runtime.BaseObject;
+use Runtime.Callback;
 use Runtime.Context;
 use Runtime.Entity;
 use Runtime.Console.CommandsList;
@@ -70,14 +71,14 @@ class App extends BaseObject
 		string class_name = commands.getCommandByName(cmd);
 		if (class_name)
 		{
-			fn command_run = rtl::method(class_name, "run");
-			command_error = await command_run();
+			Callback command_run = new Callback(class_name, "run");
+			command_error = await command_run.apply();
 		}
 		else
 		{
 			io::print_error("Command " ~ cmd ~ " not found")
 		}
 		
-		return static::getExitCode(command_error);
+		return this.getExitCode(command_error);
 	}
 }
