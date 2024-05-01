@@ -68,16 +68,28 @@ class App extends BaseObject
 		string cmd = @.cli_args[1];
 		if (cmd == null) cmd = "help";
 		
+		/* Find class name */
 		string class_name = commands.getCommandByName(cmd);
-		if (class_name)
-		{
-			Callback command_run = new Callback(class_name, "run");
-			command_error = await command_run.apply();
-		}
-		else
+		if (not rtl::class_exists(class_name))
 		{
 			io::print_error("Command " ~ cmd ~ " not found")
+			return this.getExitCode(-1);
 		}
+		
+		/* Find command */
+		Callback command_run = new Callback(class_name, "run");
+		if (not command_run.exists())
+		{
+			command_run = new Callback(rtl::newInstance(class_name), "run");
+			if (not command_run.exists())
+			{
+				io::print_error("Command " ~ cmd ~ " not found")
+				return this.getExitCode(-1);
+			}
+		}
+		
+		/* Run command */
+		command_error = await command_run.apply();
 		
 		return this.getExitCode(command_error);
 	}
