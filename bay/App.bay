@@ -19,14 +19,14 @@
 namespace Runtime.Console;
 
 use Runtime.io;
-use Runtime.BaseObject;
+use Runtime.BaseProvider;
 use Runtime.Callback;
 use Runtime.Context;
 use Runtime.Entity;
 use Runtime.Console.CommandsList;
 
 
-class App extends BaseObject
+class App extends BaseProvider
 {
 	/**
 	 * Init app
