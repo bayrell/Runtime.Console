@@ -18,7 +18,6 @@
 
 namespace Runtime.Console.Commands;
 
-use Runtime.io;
 use Runtime.Callback;
 use Runtime.Console.BaseCommand;
 use Runtime.Console.CommandsList;
@@ -43,7 +42,7 @@ class Help extends BaseCommand
 	 */
 	async static int run()
 	{
-		io::print("Methods:");
+		rtl::print("Methods:");
 		
 		CommandsList commands = @.provider(classof CommandsList);
 		Collection keys = commands.getCommands();
@@ -55,7 +54,7 @@ class Help extends BaseCommand
 			Callback getDescription = new Callback(class_name, "getDescription");
 			string command_description = getDescription.apply();
 			
-			io::print( io::color("yellow", command_name) ~ " - " ~ command_description );
+			rtl::print(rtl::color("yellow", command_name) ~ " - " ~ command_description);
 		}
 		
 		return static::SUCCESS;

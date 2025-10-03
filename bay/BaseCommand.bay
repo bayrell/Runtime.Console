@@ -24,7 +24,7 @@ use Runtime.BaseObject;
 class BaseCommand extends BaseObject
 {
 	static const int SUCCESS = 1;
-	static const int UNKNOWN_ERROR = -1;
+	static const int ERROR = -1;
 	
 	
 	/**

@@ -35,7 +35,7 @@ class CommandsList extends BaseProvider
 	 */
 	async void start()
 	{
-        Map commands_list = new Map();
+        this.commands_list = new Map();
 		
 		Collection<ConsoleCommand> commands = @.getEntities(classof ConsoleCommand);
 		for (int i=0; i<commands.count(); i++)
@@ -51,11 +51,9 @@ class CommandsList extends BaseProvider
 				string name = getName.apply();
 				
 				/* Add to list */
-				commands_list.set(name, command_class_name);
+				this.commands_list.set(name, command_class_name);
 			}
 		}
-		
-		this.commands_list = commands_list.toDict();
     }
     
 	
@@ -68,5 +66,5 @@ class CommandsList extends BaseProvider
 	/**
 	 * Returns commands list
 	 */
-	Collection<string> getCommands() => this.commands_list.keys().sort();
+	Collection<string> getCommands() => rtl::list(this.commands_list.keys()).sort();
 }

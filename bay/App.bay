@@ -70,9 +70,9 @@ class App extends BaseProvider
 		
 		/* Find class name */
 		string class_name = commands.getCommandByName(cmd);
-		if (not rtl::class_exists(class_name))
+		if (not rtl::classExists(class_name))
 		{
-			io::print_error("Command " ~ cmd ~ " not found")
+			rtl::error("Command " ~ cmd ~ " not found")
 			return this.getExitCode(-1);
 		}
 		
@@ -83,7 +83,7 @@ class App extends BaseProvider
 			command_run = new Callback(rtl::newInstance(class_name), "run");
 			if (not command_run.exists())
 			{
-				io::print_error("Command " ~ cmd ~ " not found")
+				rtl::error("Command " ~ cmd ~ " not found")
 				return this.getExitCode(-1);
 			}
 		}
