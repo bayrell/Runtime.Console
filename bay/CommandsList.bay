@@ -20,7 +20,7 @@ namespace Runtime.Console;
 
 use Runtime.lib;
 use Runtime.BaseProvider;
-use Runtime.Callback;
+use Runtime.Method;
 use Runtime.Console.BaseCommand;
 use Runtime.Console.Annotations.ConsoleCommand;
 
@@ -45,7 +45,7 @@ class CommandsList extends BaseProvider
 			if (command_class_name)
 			{
 				/* Get method getRoutes */
-				Callback getName = new Callback(command_class_name, "getName");
+				Method getName = new Method(command_class_name, "getName");
 				
 				/* Returns command name */
 				string name = getName.apply();

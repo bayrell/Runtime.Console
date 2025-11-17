@@ -20,7 +20,7 @@ namespace Runtime.Console;
 
 use Runtime.io;
 use Runtime.BaseProvider;
-use Runtime.Callback;
+use Runtime.Method;
 use Runtime.Context;
 use Runtime.Entity;
 use Runtime.Console.CommandsList;
@@ -77,10 +77,10 @@ class App extends BaseProvider
 		}
 		
 		/* Find command */
-		Callback command_run = new Callback(class_name, "run");
+		Method command_run = new Method(class_name, "run");
 		if (not command_run.exists())
 		{
-			command_run = new Callback(rtl::newInstance(class_name), "run");
+			command_run = new Method(rtl::newInstance(class_name), "run");
 			if (not command_run.exists())
 			{
 				rtl::error("Command " ~ cmd ~ " not found")
