@@ -18,7 +18,7 @@
 
 namespace Runtime.Console.Commands;
 
-use Runtime.Callback;
+use Runtime.Method;
 use Runtime.Console.BaseCommand;
 use Runtime.Console.CommandsList;
 
@@ -51,7 +51,7 @@ class Help extends BaseCommand
 		{
 			string command_name = keys.get(i);
 			string class_name = commands.getCommandByName(command_name);
-			Callback getDescription = new Callback(class_name, "getDescription");
+			Method getDescription = new Method(class_name, "getDescription");
 			string command_description = getDescription.apply();
 			
 			rtl::print(rtl::color("yellow", command_name) ~ " - " ~ command_description);
