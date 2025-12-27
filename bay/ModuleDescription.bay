@@ -55,6 +55,6 @@ class ModuleDescription
 	pure Collection<Dict> entities() => 
 	[
 		new ConsoleCommand("Runtime.Console.Commands.Help"),
-		new Provider(classof CommandsList, new CommandsList),
+		new Provider(classof CommandsList),
 	];
 }
